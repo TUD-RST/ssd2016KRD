@@ -3,4 +3,4 @@ This repository contains supporting calculations for the paper:
 
 which is submitted to the [SSD2016 Conference](http://www.ssd-conf.org/ssd16/index.php?site=cfp&conf=SAC).
 
-The source code mainly consists in an IPython notebook, where documentation, actual source code and its output (including figures) can be combined in one executable document to facilitate comprehensibility. Additionaly, a snapshot of the library [symbtools](https://github.com/cknoll/rst_symbtools) is included.
+The source code mainly consists in an IPython notebook, where documentation, actual source code and its output (including figures) can be combined in one executable document to facilitate comprehensibility.
