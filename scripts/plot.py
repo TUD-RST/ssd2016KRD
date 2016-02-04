@@ -29,8 +29,9 @@ X_ref, Y_ref = xyt_traj_func(C.tt)[:, :2].T
 
 mm = 1./25.4 #mm to inch
 scale = 2
-fs = [75*mm*scale, 35*mm*scale]
+fs = [75*mm*scale, 30*mm*scale]
 pl.rcParams['figure.subplot.bottom']=.2
+pl.rcParams['figure.subplot.top']=.97
 pl.rcParams['legend.fontsize']='medium'
 
 fnts = 12
@@ -39,6 +40,8 @@ fnts = 12
 labels = list('abcdefg')
 
 def figlabel():
+    """ print a) b) c) etc. to the figures
+    """
     s = labels.pop(0)
     pl.text(0.04, 0.85, s+')', transform=pl.gca().transAxes, fontsize=fnts)
 
@@ -46,25 +49,31 @@ def figlabel():
 
 print "Plotting simulation results from ", C.timestamp
 
-ax = pl.figure(figsize=fs)
-pl.plot(X_ref, Y_ref, 'k--', label='reference path')
-pl.plot(X, Y, 'k', label='simulation')
-pl.xlabel('$x$ in m')
-pl.ylabel('$y$ in m')
-pl.axis('equal')
-pl.axis([-.1, 2.1, -.1, 1.17])
-pl.legend(loc='lower right')
-figlabel()
 
 
-pl.savefig('plots/xy.pdf')
+
+
 
 if 1:
+    
+    ax = pl.figure(figsize=fs)
+    pl.plot(X_ref, Y_ref, 'k--', label='reference path')
+    pl.plot(X, Y, 'k', label='simulation')
+    pl.xlabel('$x$ in m')
+    pl.ylabel('$y$ in m')
+    pl.axis('equal')
+    pl.axis([-.1, 2.1, -.1, 1.17])
+    pl.legend(loc='lower right')
+    figlabel()
+    pl.savefig('plots/xy.pdf')
+
+    
     pl.figure(figsize=fs)
     pl.plot(C.tt, X_ref, 'k--')
     pl.plot(C.tt, X, 'k')
     pl.xlabel('$t$ in s')
     pl.ylabel('$x$ in m')
+    pl.axis([0, C.tt[-1], -.51, 2.4])
     #pl.text(0.1, 0.8, 'b)', transform=pl.gca().transAxes, fontsize=fnts)
     figlabel()
     pl.savefig('plots/xt.pdf')
@@ -86,5 +95,18 @@ if 1:
     pl.axis([0, C.tt[-1], -9, 8.8])
     figlabel()
     pl.savefig('plots/alpha_t.pdf')
+    
+    ax = pl.figure(figsize=fs)
+    pl.plot(C.tt, C.ttau[:,0], 'k-', label=r'$\tau_1(t)$')
+    pl.plot(C.tt, C.ttau[:,1], 'k--', label=r'$\tau_2(t)$')
+    pl.xlabel('$t$ in s')
+    pl.ylabel(r'$\tau$ in Nm')
+    #pl.axis('equal')
+    pl.axis([0, C.tt[-1], -.18, .14])
+    pl.legend(loc='lower right')
+    figlabel()
+
+
+    pl.savefig('plots/tau.pdf')
 
 pl.show()
